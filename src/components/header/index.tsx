@@ -6,7 +6,7 @@ import { LiaGamepadSolid } from "react-icons/lia";
 export default function Header() {
   return (
     <header className="w-full text-black bg-slate-200 px-2">
-    <div className=" max-w-screen-xl mx-auto flex justify-center items-center h-28">
+    <div className=" max-w-screen-xl mx-auto flex justify-center items-center h-28 sm:justify-between">
       <nav className="flex justify-center items-center gap-4 ">
       
       <Link href="/">
@@ -18,7 +18,6 @@ export default function Header() {
       className="w-full"
       />
       </Link>
-0
       <Link href="/">
       Games
       </Link>
@@ -27,7 +26,7 @@ export default function Header() {
         Perfil
       </Link>
 
-      <div>
+      <div className="hidden sm:flex justify-center items-center">
         <Link href="/">
         <LiaGamepadSolid size={34} color="#475569" />
         </Link>
