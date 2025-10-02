@@ -58,7 +58,7 @@ export default async function Game({
                     <Label key={i} name={i}/>
                 ))}
             </div>
-
+                <p className="mt-7 mb-2"><strong>DATA DE LANÇAMENTO</strong>{data.release}</p>
         </Container>
         
             
