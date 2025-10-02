@@ -22,17 +22,19 @@ export default function Header() {
       Games
       </Link>
 
-      <Link href="/">
+      <Link href="/profile">
         Perfil
       </Link>
 
-      <div className="hidden sm:flex justify-center items-center">
+ 
+      </nav>
+         <div className="hidden -right-0 sm:flex justify-center items-center">
         <Link href="/">
         <LiaGamepadSolid size={34} color="#475569" />
         </Link>
       </div>
 
-      </nav>
+ 
     </div>
     </header>
   );
