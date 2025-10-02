@@ -8,7 +8,7 @@ import { GameCard } from "@/components/gameCard";
 async function getData(id:string){
     
     try{
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/next-api/?api=game&id=${id}`)
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/next-api/?api=game&id=${id}`, {cache: "no-store"})
         return res.json();
     }catch(error){
         throw new Error('Failed to fetch data')
@@ -17,7 +17,7 @@ async function getData(id:string){
 
 async function getGameSorted(){
     try{
-        const rest = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/next-api/?api=game_day`)
+        const rest = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/next-api/?api=game_day`, {cache: "no-store"})
         return rest.json() 
     }catch(error){
         throw new Error("Failed to fetch data")
@@ -74,8 +74,8 @@ export default async function Game({
 
             <h2 className="font-bold text-lg mt-7 mb-2">jogo recomendado</h2>
             <div className="flex">
-                <div className="flex-grow">
-                    <GameCard data={sortedGame}/>
+                <div className="flex-grow relative">
+                    <GameCard data={sortedGame} />
                 </div>
             </div>
                 
