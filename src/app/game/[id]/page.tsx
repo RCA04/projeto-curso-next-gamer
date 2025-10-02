@@ -4,6 +4,54 @@ import Image from "next/image";
 import Container from "@/components/container";
 import { Label } from "./components/label";
 import { GameCard } from "@/components/gameCard";
+import { Metadata } from "next";
+
+interface propsParams{
+    params: {
+        id:string
+    }
+}
+
+async function generateMetadada({params}: propsParams):Promise<Metadata>{
+       try{
+        const response: GameProps = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/next-api/?api=game&id=${params.id}`, {cache: "no-store"})
+        .then((res)=> res.json())
+        .catch(()=>{
+            return{
+            title: "DalyGames Descubra jogos incríveis para se divertir"
+            }
+        })
+
+        return{
+            title:response.title,
+            description: `${response.description.slice(0, 100)}...`,
+            openGraph:{
+                title:response.title,
+                images:[response.image_url]
+            },
+            robots:{
+                index: true,
+                follow: true,
+                nocache:true,
+                googleBot:{
+                    index:true,
+                    follow:true,
+                    noimageindex:true,
+                }
+
+            }
+        }
+
+    }catch(error){
+        return{
+            title: "DalyGames Descubra jogos incríveis para se divertir"
+        }
+        
+    }
+
+}
+
+
 
 async function getData(id:string){
     
