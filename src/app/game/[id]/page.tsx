@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import Image from "next/image";
 import Container from "@/components/container";
 import { Label } from "./components/label";
+import { GameCard } from "@/components/gameCard";
 
 async function getData(id:string){
     
@@ -14,6 +15,16 @@ async function getData(id:string){
     }
 }
 
+async function getGameSorted(){
+    try{
+        const rest = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/next-api/?api=game_day`)
+        return rest.json() 
+    }catch(error){
+        throw new Error("Failed to fetch data")
+    }
+}
+
+
 export default async function Game({
     params:{id}
 
@@ -22,6 +33,7 @@ export default async function Game({
 }
 ){
     const data:GameProps = await getData(id);
+    const sortedGame: GameProps = await getGameSorted();
 
     if(!data){
         redirect('/')
@@ -59,6 +71,14 @@ export default async function Game({
                 ))}
             </div>
                 <p className="mt-7 mb-2"><strong>DATA DE LANÇAMENTO</strong>{data.release}</p>
+
+            <h2 className="font-bold text-lg mt-7 mb-2">jogo recomendado</h2>
+            <div className="flex">
+                <div className="flex-grow">
+                    <GameCard data={sortedGame}/>
+                </div>
+            </div>
+                
         </Container>
         
             
