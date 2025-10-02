@@ -18,11 +18,11 @@ export default function Header() {
       className="w-full"
       />
       </Link>
-      <Link href="/t1">
+      <Link href="/">
       Games
       </Link>
 
-      <Link href="/2">
+      <Link href="/profile">
         Perfil
       </Link>
 
