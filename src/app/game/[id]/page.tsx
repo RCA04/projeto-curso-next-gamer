@@ -2,6 +2,7 @@ import { GameProps } from "@/utils/types/games";
 import { redirect } from "next/navigation";
 import Image from "next/image";
 import Container from "@/components/container";
+import { Label } from "./components/label";
 
 async function getData(id:string){
     
@@ -13,7 +14,7 @@ async function getData(id:string){
     }
 }
 
-export default async function game({
+export default async function Game({
     params:{id}
 
 }: {
@@ -42,6 +43,22 @@ export default async function game({
         <Container>
             <h1 className="font-bold text-xl my-4">{data.title}</h1>
             <p>{data.description}</p>
+
+            <h2 className="font-bold text-lg mt-7 mb-2">Plataformas</h2>
+            <div className="flex gap-2 flex-wrap"> 
+                {data.platforms.map((i)=>(
+                    <Label key={i} name={i}/>
+                ))}
+
+            </div>
+
+            <h2 className="font-bold text-lg mt-7 mb-2">Categorias</h2>
+            <div className="flex gap-2 flex-wrap"> 
+                {data.categories.map((i)=>(
+                    <Label key={i} name={i}/>
+                ))}
+            </div>
+
         </Container>
         
             
