@@ -4,10 +4,21 @@ import Link from "next/link";
 import Image from "next/image";
 import { BsArrowRightSquare} from 'react-icons/bs'
 import { Input } from "@/components/input";
+import { GameCard } from "@/components/gameCard";
 
 async function getDalyGames() {
  
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/next-api/?api=game_day`, {next: {revalidate: 45}});
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/next-api/?api=game_day`, {next: {revalidate: 320}});
+  if(!res.ok){
+    throw new Error("Failed to fetch data");
+  }
+  
+  return res.json();
+}
+
+async function getGamesData() {
+ 
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/next-api/?api=games`, {next: {revalidate: 320}});
   if(!res.ok){
     throw new Error("Failed to fetch data");
   }
@@ -18,6 +29,7 @@ async function getDalyGames() {
 
 export default async function Home() {
   const dalyGames: GameProps = await getDalyGames();
+  const data: GameProps[] = await getGamesData();
   return (
     <main className="w-full">
       <Container>
@@ -44,6 +56,16 @@ export default async function Home() {
          </Link>
 
         <Input />
+
+        <h2 className="text-lg font-bold mt-8 mb-5">
+          jogos para conhecer
+        </h2>
+
+      <section className="grid gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {data.map((i)=>(
+          <GameCard key={i.id} data={i}/>
+        ))}
+      </section>
 
       </Container>
       </main>
