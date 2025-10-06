@@ -13,12 +13,14 @@ try{
  }
 }
 
-export default async function Search({
-    params:{title}
-}:{
-    params: {title:string}
-}){
+type RouteParams = { title: string }
 
+export default async function Search({
+    params
+}:{
+    params: Promise<RouteParams>
+}){
+    const { title } = await params;
     const games: GameProps[] = await getData(title);
     return(
     <main>
