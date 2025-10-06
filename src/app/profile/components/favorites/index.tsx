@@ -33,7 +33,7 @@ export function FavoriteCard(){
                     </button>
                     </div>
             ):(
-            <button className="self-start scale-110 duration-200 transition-all">
+            <button className="self-start scale-110 duration-200 transition-all" onClick={() => setShowInput(true)}>
             <FiEdit size={24} color="#fff"/>
             </button>
             )}
