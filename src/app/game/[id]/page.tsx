@@ -6,13 +6,15 @@ import { Label } from "./components/label";
 import { GameCard } from "@/components/gameCard";
 import { Metadata } from "next";
 
+type RouteParams = { id: string }
+
 interface propsParams{
-    params: { id: string }
+    params: Promise<RouteParams>
 }
 
 export async function generateMetadata({ params }: propsParams): Promise<Metadata> {
        try{
-        const { id } = params;
+        const { id } = await params;
         const response: GameProps = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/next-api/?api=game&id=${id}`, { cache: "no-store" })
         .then((res)=> res.json())
         .catch(()=>{
@@ -72,8 +74,8 @@ async function getGameSorted(){
 }
 
 
-export default async function Game({ params }: { params: { id: string } }){
-    const { id } = params;
+export default async function Game({ params }: { params: Promise<RouteParams> }){
+    const { id } = await params;
     const data:GameProps = await getData(id);
     const sortedGame: GameProps = await getGameSorted();
 
