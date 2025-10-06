@@ -8,13 +8,13 @@ import { Metadata } from "next";
 
 interface propsParams{
     params: {
-        id:string
+        id: string
     }
 }
 
-async function generateMetadada({params}: propsParams):Promise<Metadata>{
+export async function generateMetadata({ params }: propsParams): Promise<Metadata> {
        try{
-        const response: GameProps = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/next-api/?api=game&id=${params.id}`, {cache: "no-store"})
+        const response: GameProps = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/next-api/?api=game&id=${params.id}`, { cache: "no-store" })
         .then((res)=> res.json())
         .catch(()=>{
             return{
@@ -53,7 +53,7 @@ async function generateMetadada({params}: propsParams):Promise<Metadata>{
 
 
 
-async function getData(id:string){
+async function getData(id: string){
     
     try{
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/next-api/?api=game&id=${id}`, {cache: "no-store"})
@@ -73,14 +73,8 @@ async function getGameSorted(){
 }
 
 
-export default async function Game({
-    params
-
-}: {
-    params: {id:string}
-}
-){
-    const { id } = await params;
+export default async function Game({ params }: { params: { id: string } }){
+    const { id } = params;
     const data:GameProps = await getData(id);
     const sortedGame: GameProps = await getGameSorted();
 
